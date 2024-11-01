@@ -17,15 +17,30 @@ class StudentsController extends Controller
         ];
         return response()->json($data);
     }
-    public function store(Request $request){
-        
+    public function show($id)
+    {
+        $student = Student::find($id);
+        if ($student) {
+            $data = [
+                'message' => 'query success with',
+                'detail' => $student
+            ];
+            return response()->json($data);
+
+        }else{
+            return response()->json(['message'=> 'query success with error'],404);
+        }
+    }
+    public function store(Request $request)
+    {
+
         $input = [
-            'nama'=> $request->nama,
-            'nim'=> $request->nim,
-            'email'=> $request->email,
-            'jurusan'=> $request->jurusan,
+            'nama' => $request->nama,
+            'nim' => $request->nim,
+            'email' => $request->email,
+            'jurusan' => $request->jurusan,
         ];
-        $student  = Student::create($input);
+        $student = Student::create($input);
         $data = [
             'message' => 'Get All Students',
             'data' => $student,
@@ -33,7 +48,8 @@ class StudentsController extends Controller
         return response()->json($data);
 
     }
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         $getId = Student::find($id);
         $getId->nama = $request->nama;
         $getId->nim = $request->nim;
@@ -47,7 +63,8 @@ class StudentsController extends Controller
         return response()->json($data);
         // dd($request);
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         // dd('test');
         Student::find($id)->delete();
         $data = [
