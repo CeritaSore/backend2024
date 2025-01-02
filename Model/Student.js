@@ -42,13 +42,16 @@ class Student {
             if (result.affectedRows === 0) {
               reject(new Error("Data tidak ditemukan")); // Jika tidak ada row yang diupdate
             } else {
-              resolve({ id, ...data }); // Mengembalikan data yang diperbarui
+              // Mengambil data yang diperbarui
+              const updatedData = { id, ...data }; // Menggabungkan id dan data baru
+              resolve(updatedData); // Mengembalikan data yang diperbarui
             }
           }
         }
       );
     });
   }
+
   static find(id) {
     return new Promise((resolve, reject) => {
       const sql = "select * from student where id=?";
@@ -59,15 +62,18 @@ class Student {
   }
   static destroy(id) {
     return new Promise((resolve, reject) => {
-      const sql = "delete from student where id=?";
+      const sql = "DELETE FROM student WHERE id=?";
       db.query(sql, [id], (err, result) => {
         if (err) {
-          reject(err); // Menangani error
+          reject({
+            message: "Terjadi kesalahan pada query",
+            error: err.message,
+          }); // Kirim error dalam bentuk JSON-friendly
         } else {
           if (result.affectedRows === 0) {
-            reject(new Error("Data tidak ditemukan")); // Menangani jika tidak ada data yang dihapus
+            reject({ message: "Data tidak ditemukan" }); // Jika tidak ada data yang dihapus
           } else {
-            resolve({ message: "Data berhasil dihapus", id }); // Mengembalikan informasi penghapusan
+            resolve({ message: "Data berhasil dihapus", id }); // Informasi penghapusan
           }
         }
       });
