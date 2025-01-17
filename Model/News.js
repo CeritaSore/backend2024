@@ -98,6 +98,42 @@ class News {
       });
     });
   }
+  static sportcategory() {
+    return new Promise((resolve, reject) => {
+      const sqlquery = "select * from news where category = 1";
+      db.query(sqlquery, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
+  static financecategory() {
+    return new Promise((resolve, reject) => {
+      const sqlquery = "select * from news where category = 2";
+      db.query(sqlquery, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
+  static automotivecategory() {
+    return new Promise((resolve, reject) => {
+      const sqlquery = "select * from news where category = 3";
+      db.query(sqlquery, (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
 
   //   static all() {
   //   }

@@ -110,13 +110,40 @@ class NewsController {
     }
   }
   async search(req, res) {
-    const getword = req.params.word;
+    const getword = req.params.title;
     const getdata = await News.search(getword);
     if (getdata.length === 0) {
       res.status(404).json("Resource not found");
     } else {
       res.status(200).json(getdata);
     }
+  }
+  async sportsearch(req, res) {
+    const getdata = await News.sportcategory();
+    const data = {
+      message: "Get sport resource",
+      total: getdata.length,
+      data: getdata,
+    };
+    res.status(200).json(data);
+  }
+  async financesearch(req, res) {
+    const getdata = await News.financecategory();
+    const data = {
+      message: "Get finance resource",
+      total: getdata.length,
+      data: getdata,
+    };
+    res.status(200).json(data);
+  }
+  async automotivesearch(req, res) {
+    const getdata = await News.automotivecategory();
+    const data = {
+      message: "Get automotive resource",
+      total: getdata.length,
+      data: getdata,
+    };
+    res.status(200).json(data);
   }
 }
 

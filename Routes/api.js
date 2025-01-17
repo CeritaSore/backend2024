@@ -10,12 +10,15 @@ const router = express.Router();
 /**
  * Membuat routing
  */
-router.get("/", NewsController.index);
-router.post("/", NewsController.store);
-router.put("/:id", NewsController.update);
-router.delete("/:id", NewsController.destroy);
-router.get("/:id", NewsController.find);
-router.get("/search/:word", NewsController.search);
+router.get("/news", NewsController.index);
+router.post("/news", NewsController.store);
+router.put("/news/:id", NewsController.update);
+router.delete("/news/:id", NewsController.destroy);
+router.get("/news/:id", NewsController.find);
+router.get("/news/search/:title", NewsController.search);
+router.get("/news/category/sport", NewsController.sportsearch);
+router.get("/news/category/finance", NewsController.financesearch);
+router.get("/news/category/automotive", NewsController.automotivesearch);
 
 // Membuat routing news
 
