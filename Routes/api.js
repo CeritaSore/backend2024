@@ -1,19 +1,20 @@
-// import StudentController
-const StudentController = require("../Controller/StudentController");
+// import NewsController
+const NewsController = require("../Controller/NewsController");
 
+// import express
 const express = require("express");
+
+// membuat object router
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Welcome to Student API");
-});
+/**
+ * Membuat routing
+ */
+router.get("/", NewsController.index);
+router.post("/", NewsController.store);
+router.put("/:id", NewsController.update);
 
-// student routes
-router.get("/students", StudentController.index);
-router.get("/students/:id", StudentController.find);
-router.post("/students", StudentController.store);
-router.put("/students/:id", StudentController.update);
-router.delete("/students/:id", StudentController.destroy);
+// Membuat routing news
 
 // export router
 module.exports = router;
