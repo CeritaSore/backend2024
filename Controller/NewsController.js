@@ -83,6 +83,41 @@ class NewsController {
       });
     }
   }
+  async destroy(req, res) {
+    const id = req.params.id;
+    const deletedata = await News.destroy(id);
+    const data = {
+      message: "success",
+      data: deletedata,
+    };
+    res.json(data);
+  }
+  async find(req, res) {
+    const getid = req.params.id;
+    const findid = await News.find(getid);
+    // res.json(findid);
+    if (findid.length === 0) {
+      const data = {
+        message: "Resource Not Found",
+      };
+      res.status(404).json(data);
+    } else {
+      const data = {
+        message: "Get Detail Resource",
+        data: findid,
+      };
+      res.status(200).json(data);
+    }
+  }
+  async search(req, res) {
+    const getword = req.params.word;
+    const getdata = await News.search(getword);
+    if (getdata.length === 0) {
+      res.status(404).json("Resource not found");
+    } else {
+      res.status(200).json(getdata);
+    }
+  }
 }
 
 // membuat object NewsController

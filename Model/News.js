@@ -51,7 +51,6 @@ class News {
           data.description,
           data.content,
           data.category,
-          ,
           id,
         ],
         (err, results) => {
@@ -69,6 +68,37 @@ class News {
       );
     });
   }
+  static destroy(id) {
+    const sqlquery = "delete from news where id = ?";
+    db.query(sqlquery, [id], (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  }
+  static find(id) {
+    return new Promise((resolve, reject) => {
+      const sql = "select * from news where id=?";
+      db.query(sql, [id], (err, results) => {
+        resolve(results);
+      });
+    });
+  }
+  static search(word) {
+    return new Promise((resolve, reject) => {
+      const sqlquery = "SELECT * FROM news WHERE title LIKE ?";
+      db.query(sqlquery, [`%${word}%`], (err, results) => {
+        if (err) {
+          reject(err); // Reject the promise if there is an error
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
+
   //   static all() {
   //   }
 }
